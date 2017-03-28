@@ -1,0 +1,1 @@
+python plot.py cluster_plot.yaml

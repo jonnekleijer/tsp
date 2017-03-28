@@ -1,0 +1,1 @@
+python plot.py series_plot.yaml
