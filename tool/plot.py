@@ -216,13 +216,11 @@ def run(**kwargs):
 
     # read metadata
     logging.info('reading metadata')
-    metadatafile = metadata.pop('file')
-    if metadatafile.lower().endswith('.h5'):
-        with pd.HDFStore(metadata.pop('file')) as s:
-            md = s[metadata.pop('table')]
+    if metadata['file'].lower().endswith('.h5'):
+        md = utils.table_from_record(metadata)
     else:
         index_cols = metadata.pop('index_cols')
-        md = utils.read_table(metadatafile, index_cols=index_cols)
+        md = utils.read_table(metadata['file'], index_cols=index_cols)
 
     md = md.groupby(level=[0, 1]).last()
 
@@ -236,10 +234,7 @@ def run(**kwargs):
 
     # read series and attrs from records
     logging.info('reading timeseries')
-    ss = {}
-    for record in records:
-        with pd.HDFStore(record.pop('file')) as s:
-            ss[record['label']] = s[record.pop('table')]
+    ss = {r['label']: utils.table_from_record(r) for r in records}
     ss = pd.DataFrame(ss)
     attrs = {r.pop('label'): r for r in records}
 

@@ -30,8 +30,11 @@ def read_table(csvfile,
         )
 
 
-def table_from_record(record):
-    with pd.HDFStore(record.pop('file'), 'r') as store:
-        table = store[record.pop('table')]
-        table.name = record.pop('name')
+def table_from_record(record,
+        filefield='file',
+        tablefield='table',
+        namefield='name'):
+    with pd.HDFStore(record.pop(filefield), 'r') as store:
+        table = store[record.pop(tablefield)]
+        table.name = record.pop(namefield)
         return table

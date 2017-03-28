@@ -5,8 +5,8 @@ metadata: {file: ..\stamgegevens\ijkdataset.csv, index_cols: [name, filternr],
 
 # records of series with source h5 file and color specification (for color names see: http://matplotlib.org/examples/color/named_colors.html)
 records: [
-{label: ijkset, file: ..\hdfstores\ijkset.h5, table: series, color: dodgerblue, linestyle: '', marker: 'o', markersize: 1.5, markeredgecolor: 'none', alpha: .8, zorder: 1},
-{label: scenario, file: ..\hdfstores\scenario.h5, table: series, color: seagreen, linestyle: '-', linewidth: 1, alpha: .8, zorder: 2},
+{name: ijkset, label: ijkset, file: ..\hdfstores\ijkset.h5, table: series, color: dodgerblue, linestyle: '', marker: 'o', markersize: 1.5, markeredgecolor: 'none', alpha: .8, zorder: 1},
+{name: scenario, label: scenario, file: ..\hdfstores\scenario.h5, table: series, color: seagreen, linestyle: '-', linewidth: 1, alpha: .8, zorder: 2},
 ]
 
 # resample frequency (e.g. a=year, m=month, d=day, h=hour, 30min=30 minutes)

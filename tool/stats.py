@@ -11,6 +11,7 @@ import pandas as pd
 import numpy as np
 
 # std
+from collections import OrderedDict
 import argparse
 import logging
 import yaml
@@ -132,11 +133,11 @@ def run(**kwargs):
 
     # export series to CSV
     seriesfile = os.path.join(exportfolder, seriesfileformat.format(
-                                observed=observed.name,
-                                model=model.name,
-                                start=start.strftime('%Y%m%d%H%M%S'),
-                                end=end.strftime('%Y%m%d%H%M%S'),
-                                ))
+        observed=observed.name,
+        model=model.name,
+        start=start.strftime('%Y%m%d%H%M%S'),
+        end=end.strftime('%Y%m%d%H%M%S'),
+        ))
 
     if export_series:
         logging.info('exporting series to {}'.format(
@@ -144,18 +145,19 @@ def run(**kwargs):
         series.to_csv(seriesfile)
 
     # summary statistics
-    summary = residuals.groupby(level=[0, 1]).aggregate({
-        'mean error': mean_error,
-        'mean absolute error': mean_absolute_error,
-        'root mean square error': root_mean_square_error,
-        'sum of squared errors': sum_of_squared_errors,
-       })
+    statfuncs = OrderedDict([
+        ('mean error', mean_error),
+        ('mean absolute error', mean_absolute_error),
+        ('root mean square error', root_mean_square_error),
+        ])
+    summary = residuals.groupby(level=[0, 1]).aggregate(statfuncs)
 
     evp = lambda s: explained_variance_percentage(s[observed.name],
                                                   s[residuals.name])
     summary['explained variance percentage'] = (series
                                                 .groupby(level=(0, 1))
                                                 .apply(evp))
+    summary['nresiduals'] = residuals.groupby(level=[0, 1]).count()
 
     summaryfile = os.path.join(exportfolder, summaryfileformat.format(
         observed=observed.name,
@@ -171,20 +173,19 @@ def run(**kwargs):
 
     # summary by layer
     layers = layers.reindex_like(residuals, method='ffill')
-    summary_bylayer = residuals.groupby(layers).aggregate({
-        'mean error': mean_error,
-        'mean absolute error': mean_absolute_error,
-        'root mean square error': root_mean_square_error,
-        'sum of squared errors': sum_of_squared_errors,
-       })
-
-    import pdb; pdb.set_trace()
+    summarybylayer = residuals.groupby(layers).aggregate(statfuncs)
 
     evp = lambda s: explained_variance_percentage(s[observed.name],
                                                   s[residuals.name])
-    summary_bylayer['explained variance percentage'] = (series
-                                                .groupby(layers)
-                                                .apply(evp))
+    summarybylayer['explained variance percentage'] = (series
+                                                        .groupby(layers)
+                                                        .apply(evp))
+
+    summarybylayer['nlocations'] = (residuals.groupby(layers)
+                                .apply(lambda s: len(s.groupby(level=0))))
+    summarybylayer['nfilters'] = (residuals.groupby(layers)
+                                .apply(lambda s: len(s.groupby(level=[0, 1]))))
+    summarybylayer['nresiduals'] = residuals.groupby(layers).count()
 
     summarybylayerfile = os.path.join(exportfolder,
         summarybylayerfileformat.format(
@@ -197,7 +198,7 @@ def run(**kwargs):
     # export summary by layer to CSV
     logging.info('exporting by layer statistics to {}'.format(
                  os.path.basename(summarybylayerfile)))
-    summary_bylayer.to_csv(summarybylayerfile)
+    summarybylayer.to_csv(summarybylayerfile)
 
 
 
