@@ -38,5 +38,8 @@ exportfolder: ..\clusterplot
 # figure size (inch)
 figsize: [12, 6]
 
+# plot surface level as line
+plot_surfacelevel: True
+
 # cluster by well location
 clustered: True

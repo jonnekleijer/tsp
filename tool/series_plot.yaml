@@ -33,5 +33,8 @@ exportfolder: ..\series_plot
 # figure size (inch)
 figsize: [12, 6]
 
+# plot surface level as line
+plot_surfacelevel: True
+
 # cluster by well location
 clustered: False

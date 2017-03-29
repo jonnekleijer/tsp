@@ -63,6 +63,7 @@ def plot(imagefile,
     ylabel=None,
     title=None,
     sidetext=None,
+    surfacelevel=None,
     ):
     """Summary
     Plot columns of datetime indexed dataframe to imagefile.
@@ -99,6 +100,10 @@ def plot(imagefile,
         series = series.dropna()
         if len(series) > 0:
             ax.plot(series, **attrs[label])
+
+    ylim
+    if surfacelevel is not None:
+        ax.axhline(surfacelevel, **config.SURFACELEVEL)
 
     ax.grid(b=True, which='major', axis='both', color='k')
 
@@ -195,6 +200,7 @@ def run(**kwargs):
     serieslabelformats = kwargs.get('labelformat')
     figsize = kwargs.get('figsize', config.DEFAULTFIGSIZE)
     dpi = kwargs.get('dpi', config.DEFAULTDPI)
+    plot_surfacelevel = kwargs.get('plot_surfacelevel', True)
     testone = kwargs.get('testone', False)
     clustered = kwargs.get('clustered', False)
 
@@ -320,6 +326,12 @@ def run(**kwargs):
             # format sidetext
             sidetext = sidetextformat.format(**sidevars.loc[name])
 
+            # get surface level
+            if plot_surfacelevel:
+                surfacelevel = sidevars.loc[name, 'surfacelev']
+            else:
+                surfacelevel = None
+
             # plot
             plot(imagefile, timeseries, re_attrs,
                 figsize=figsize,
@@ -334,6 +346,7 @@ def run(**kwargs):
                 ylabel=ylabel,
                 title=title,
                 sidetext=sidetext,
+                surfacelevel=surfacelevel,
                 )
     else:
         for (name, filternr), timeseries in ss.groupby(level=[0, 1]):
@@ -362,6 +375,12 @@ def run(**kwargs):
             # format sidetext
             sidetext = sidetextformat.format(**sidevars.loc[(name, filternr)])
 
+            # get surface level
+            if plot_surfacelevel:
+                surfacelevel = sidevars.loc[(name, filternr), 'surfacelev']
+            else:
+                surfacelevel = None
+
             # plot
             plot(imagefile, timeseries, attrs,
                 figsize=figsize,
@@ -377,6 +396,7 @@ def run(**kwargs):
                 ylabel=ylabel,
                 title=title,
                 sidetext=sidetext,
+                surfacelevel=surfacelevel,
                 )
 
 

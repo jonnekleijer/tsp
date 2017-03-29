@@ -5,7 +5,9 @@
 METADATA_DELIMITER = ','
 METADATA_DECIMAL = '.'
 
-DEFAULTCOLOR = 'lightgray'
+SURFACELEVEL = {'label': 'mv', 'linestyle': '--', 'color': 'lightgray', 'zorder': 2}
+
+DEFAULTCOLOR = 'salmon'
 DEFAULTCLUSTEREDFILEFORMAT = 'series_{name:}.png'
 DEFAULTCLUSTEREDTITLEFORMAT = '{area:}: {name:}'
 DEFAULTCLUSTEREDSIDETEXTFORMAT = 'mv: {surfacelev:6.1f} mNAP'
