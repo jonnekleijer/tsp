@@ -1,7 +1,11 @@
 # metadata from h5 or CSV file
 metadata: {file: ..\stamgegevens\ijkdataset.csv, index_cols: [name, filternr],
-  areafield: area, layerfield: layer,
-  sidefields: ['surfacelev', 'topfilter', 'bottomfilter']}
+  areafield: area,
+  layerfield: layer,
+  surfacelevelfield: surfacelev,
+  topfilterfield: topfilter,
+  bottomfilterfield: bottomfilter,
+  }
 
 # records of series with source h5 file and color specification (for color names see: http://matplotlib.org/examples/color/named_colors.html)
 records: [

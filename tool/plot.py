@@ -228,15 +228,45 @@ def run(**kwargs):
         index_cols = metadata.pop('index_cols')
         md = utils.read_table(metadata['file'], index_cols=index_cols)
 
-    md = md.groupby(level=[0, 1]).last()
+    # remove duplicates in metadata, select first (location, filternumber)
+    md = md.groupby(level=[0, 1]).first()
 
+    # area names as string
     areas = md.loc[:, metadata.pop('areafield')].astype(str)
-    layers = md.loc[:, metadata.pop('layerfield')]
-    sidevars = md.loc[:, metadata.pop('sidefields')]
+
+    # layer numbers
+    layers = md.loc[:, metadata.pop('layerfield')].astype(int)
+
+    # get surfacelevels
+    surfacelevels = md.loc[:, metadata.pop('surfacelevelfield')]
+
+    # top of filter
+    topfilters = md.loc[:, metadata.pop('topfilterfield')]
+
+    # bottom of filter
+    bottomfilters = md.loc[:, metadata.pop('bottomfilterfield')]
     if clustered:
-        labelvars = md.loc[:, metadata.pop('labelfields')]
+        # sidetext variables
+        sidevars = pd.DataFrame({
+            'surfacelevel': surfacelevels})
+
+        # label variables
+        labelvars = pd.DataFrame({
+            'topfilter': topfilters,
+            'bottomfilter': bottomfilters,
+            })
+
+        # get first value of location (generally filter 1)
         areas = areas.groupby(level=0).first()
+        surfacelevels = surfacelevels.groupby(level=0).first()
         sidevars = sidevars.groupby(level=0).first()
+    else:
+        # sidetext variables
+        sidevars = pd.DataFrame({
+            'surfacelevel': surfacelevels,
+            'topfilter': topfilters,
+            'bottomfilter': bottomfilters,
+            })
 
     # read series and attrs from records
     logging.info('reading timeseries')
@@ -251,7 +281,7 @@ def run(**kwargs):
         end = pd.to_datetime(end)
         period = (start, end)
 
-    # resample series
+    # resample and/or truncate series
     if (resample_freq is not None) and (period is not None):
         logging.info('resampling and truncating timeseries')
         ss = (ss
@@ -328,7 +358,7 @@ def run(**kwargs):
 
             # get surface level
             if plot_surfacelevel:
-                surfacelevel = sidevars.loc[name, 'surfacelev']
+                surfacelevel = surfacelevels.loc[name]
             else:
                 surfacelevel = None
 
@@ -377,7 +407,7 @@ def run(**kwargs):
 
             # get surface level
             if plot_surfacelevel:
-                surfacelevel = sidevars.loc[(name, filternr), 'surfacelev']
+                surfacelevel = surfacelevels.loc[(name, filternr)]
             else:
                 surfacelevel = None
 
