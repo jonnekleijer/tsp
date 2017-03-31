@@ -1,1 +1,1 @@
-python plot.py series_plot.yaml
+python tsp/plot.py series_plot.yaml

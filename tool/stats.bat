@@ -1,1 +1,1 @@
-python stats.py stats.yaml
+python tsp/stats.py stats.yaml

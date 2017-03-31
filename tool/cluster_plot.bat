@@ -1,1 +1,1 @@
-python plot.py cluster_plot.yaml
+python tsp/plot.py cluster_plot.yaml

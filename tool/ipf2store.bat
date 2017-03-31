@@ -1,1 +1,1 @@
-python ipf2store.py ipf2store_scenario.yaml 
+python tsp/ipf2store.py ipf2store_scenario.yaml
