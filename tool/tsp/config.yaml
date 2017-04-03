@@ -28,7 +28,7 @@ IPF_DATETIMEFORMAT: '%Y%m%d'
 # plotting: default color
 COLOR: 'salmon'
 
-# plotting surfa
+# plotting surface level
 SURFACELEVEL: {
               'label': 'mv',
               'linestyle':'--',

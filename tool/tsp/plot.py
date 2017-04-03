@@ -218,7 +218,6 @@ def run(**kwargs):
         fileformat = fileformat or config.SERIESFILEFORMAT
         titleformat = titleformat or config.SERIESTITLEFORMAT
         sidetextformat = sidetextformat or config.SERIESSIDETEXTFORMAT
-        serieslabelformats = None
 
     # read metadata
     logging.info('reading metadata')
