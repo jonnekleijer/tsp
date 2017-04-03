@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 # Tom van Steijn, Royal HaskoningDHV
 
+
 # package
+from config import config
 import ipf
 import utils
 
@@ -19,9 +21,6 @@ import os
 
 log = logging.getLogger(os.path.basename(__file__))
 
-DEFAULTDELIMITER = ','
-DEFAULTFILEFORMAT = '{modelid:}.txt'
-DEFAULTDATETIMEFORMAT = '%Y%m%d'
 
 def get_parser():
     '''get argumentparser and add arguments'''
@@ -42,9 +41,10 @@ def run(**kwargs):
     filternrfield = kwargs['filternrfield']
     modelidfield = kwargs['modelidfield']
     folder = kwargs['folder']
-    fileformat = kwargs.get('fileformat', DEFAULTFILEFORMAT)
-    datetimeformat = kwargs.get('datetimeformat', DEFAULTDATETIMEFORMAT)
-    delimiter = kwargs.get('delimiter', DEFAULTDELIMITER)
+    fileformat = kwargs.get('fileformat', config.IPF_FILEFORMAT)
+    datetimeformat = kwargs.get('datetimeformat', config.IPF_DATETIMEFORMAT)
+    delimiter = kwargs.get('delimiter', config.IPF_DELIMITER)
+    decimal = kwargs.get('decimal', config.IPF_DECIMAL)
     datetimefield = kwargs['datetimefield']
     valuefield = kwargs['valuefield']
     storefile = kwargs['storefile']

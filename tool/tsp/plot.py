@@ -3,7 +3,7 @@
 # Tom van Steijn, Royal HaskoningDHV
 
 # package
-import config
+from config import config
 import utils
 
 # 3rd party
@@ -198,8 +198,8 @@ def run(**kwargs):
     titleformat = kwargs.get('titleformat')
     sidetextformat = kwargs.get('sidetextformat')
     serieslabelformats = kwargs.get('labelformat')
-    figsize = kwargs.get('figsize', config.DEFAULTFIGSIZE)
-    dpi = kwargs.get('dpi', config.DEFAULTDPI)
+    figsize = kwargs.get('figsize', config.FIGSIZE)
+    dpi = kwargs.get('dpi', config.DPI)
     plot_surfacelevel = kwargs.get('plot_surfacelevel', True)
     testone = kwargs.get('testone', False)
     clustered = kwargs.get('clustered', False)
@@ -210,14 +210,14 @@ def run(**kwargs):
 
     # set default string formats
     if clustered:
-        fileformat = fileformat or config.DEFAULTCLUSTEREDFILEFORMAT
-        titleformat = titleformat or config.DEFAULTCLUSTEREDTITLEFORMAT
-        sidetextformat = sidetextformat or config.DEFAULTCLUSTEREDSIDETEXTFORMAT
-        serieslabelformats = serieslabelformats or config.DEFAULTCLUSTEREDLABELFORMATS
+        fileformat = fileformat or config.CLUSTEREDFILEFORMAT
+        titleformat = titleformat or config.CLUSTEREDTITLEFORMAT
+        sidetextformat = sidetextformat or config.CLUSTEREDSIDETEXTFORMAT
+        serieslabelformats = serieslabelformats or config.CLUSTEREDLABELFORMATS
     else:
-        fileformat = fileformat or config.DEFAULTSERIESFILEFORMAT
-        titleformat = titleformat or config.DEFAULTSERIESTITLEFORMAT
-        sidetextformat = sidetextformat or config.DEFAULTSERIESSIDETEXTFORMAT
+        fileformat = fileformat or config.SERIESFILEFORMAT
+        titleformat = titleformat or config.SERIESTITLEFORMAT
+        sidetextformat = sidetextformat or config.SERIESSIDETEXTFORMAT
         serieslabelformats = None
 
     # read metadata
@@ -330,7 +330,7 @@ def run(**kwargs):
                 layer = layers.loc[(name, filternr)]
                 label_attrs = attrs[label].copy()
                 colorsbylayer = label_attrs.pop('colorsbylayer')
-                label_attrs['color'] = colorsbylayer.get(layer, config.DEFAULTCOLOR)
+                label_attrs['color'] = colorsbylayer.get(layer, config.COLOR)
                 formatnumber = label_attrs.pop('labelformat')
                 labelformat = serieslabelformats.get(formatnumber, 1)
                 relabel = labelformat.format(filternr=filternr, label=label,

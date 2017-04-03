@@ -3,6 +3,7 @@
 # Tom van Steijn, Royal HaskoningDHV
 
 # package
+from config import config
 import ipf
 import utils
 
@@ -19,9 +20,6 @@ import os
 
 log = logging.getLogger(os.path.basename(__file__))
 
-DEFAULTDELIMITER = ','
-DEFAULTDATETIMEFORMAT = '%Y%m%d'
-
 def get_parser():
     '''get argumentparser and add arguments'''
     parser = argparse.ArgumentParser(
@@ -37,9 +35,10 @@ def get_parser():
 def run(**kwargs):
     # unpack input from kwargs
     csvfile = kwargs['csvfile']
-    delimiter = kwargs.get('delimiter', DEFAULTDELIMITER)
+    delimiter = kwargs.get('delimiter', config.DATA_DELIMITER)
+    decimal = kwargs.get('decimal', config.DATA_DECIMAL)
     na_values = kwargs.get('na_values')
-    datetimeformat = kwargs.get('datetimeformat', DEFAULTDATETIMEFORMAT)
+    datetimeformat = kwargs.get('datetimeformat', config.DATA_DATETIMEFORMAT)
     locationfield = kwargs['locationfield']
     filternrfield = kwargs['filternrfield']
     datetimefield = kwargs['datetimefield']
@@ -53,6 +52,7 @@ def run(**kwargs):
     usecols = [locationfield, filternrfield, datetimefield, valuefield]
     table = pd.read_csv(csvfile,
         delimiter=delimiter,
+        decimal=decimal,
         index_col=index_cols,
         header=0,
         na_values=na_values,

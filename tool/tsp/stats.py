@@ -3,7 +3,7 @@
 # Tom van Steijn, Royal HaskoningDHV
 
 # package
-import config
+from config import config
 import utils
 
 # 3rd party
@@ -17,9 +17,6 @@ import logging
 import yaml
 import os
 
-DEFAULTSERIESFILEFORMAT = 'series_{observed:}_{model:}_{start:}_{end:}.csv'
-DEFAULTSUMMARYFILEFORMAT = 'summary_{observed:}_{model:}_{start:}_{end:}.csv'
-DEFAULTSUMMARYBYLAYERFILEFORMAT = 'summary_bylayer_{observed:}_{model:}_{start:}_{end:}.csv'
 
 def get_parser():
     '''get argumentparser and add arguments
@@ -63,11 +60,11 @@ def run(**kwargs):
     export_series = kwargs.get('export_series', False)
     exportfolder = kwargs['exportfolder']
     seriesfileformat = kwargs.get('seriesfileformat',
-                                  DEFAULTSERIESFILEFORMAT)
+                                  config.SERIESFILEFORMAT)
     summaryfileformat = kwargs.get('summaryfileformat',
-                                   DEFAULTSUMMARYFILEFORMAT)
+                                   config.SUMMARYFILEFORMAT)
     summarybylayerfileformat = kwargs.get('summarybylayerfileformat',
-                                   DEFAULTSUMMARYBYLAYERFILEFORMAT)
+                                   config.SUMMARYBYLAYERFILEFORMAT)
 
     # create export folder if it does not exist
     if not os.path.exists(exportfolder):

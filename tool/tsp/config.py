@@ -2,23 +2,24 @@
 # -*- coding: utf-8 -*-
 # Tom van Steijn, Royal HaskoningDHV
 
-METADATA_DELIMITER = ','
-METADATA_DECIMAL = '.'
+from collections import ChainMap
+from types import SimpleNamespace
+import yaml
+import os
 
-SURFACELEVEL = {'label': 'mv', 'linestyle': '--', 'color': 'lightgray', 'zorder': 2}
+thisfolder = os.path.dirname(os.path.realpath(__file__))
+defaultconfigfile = r'config.yaml'
+userconfigfile = r'..\userconfig.yaml'
 
-DEFAULTCOLOR = 'salmon'
-DEFAULTCLUSTEREDFILEFORMAT = 'series_{name:}.png'
-DEFAULTCLUSTEREDTITLEFORMAT = '{area:}: {name:}'
-DEFAULTCLUSTEREDSIDETEXTFORMAT = 'mv: {surfacelevel:6.1f} mNAP'
-DEFAULTCLUSTEREDLABELFORMATS = {
-    1: 'filter {filternr:}, {bottomfilter:.1f} - {topfilter:.1f} mNAP',
-    2: '{label:} l{layer:d}',
-}
+defaultconfigfile = os.path.join(thisfolder, defaultconfigfile)
+userconfigfile = os.path.join(thisfolder, userconfigfile)
 
-DEFAULTSERIESFILEFORMAT = 'series_{name:}_{filternr:d}_l{layer:d}.png'
-DEFAULTSERIESTITLEFORMAT = '{area:}: {name:} filter {filternr:d}, l{layer:d}'
-DEFAULTSERIESSIDETEXTFORMAT = 'mv: {surfacelevel:6.1f} mNAP\nbkf: {topfilter:6.1f} mNAP\nokf: {bottomfilter:6.1f} mNAP'
+with open(defaultconfigfile) as y:
+    config_mapping = yaml.load(y)
 
-DEFAULTFIGSIZE = 11.7, 8.27
-DEFAULTDPI = 200
+if os.path.exists(userconfigfile):
+    with open(userconfigfile) as y:
+        userconfig_mapping = yaml.load(y)
+    config_mapping = ChainMap(userconfig_mapping, config_mapping)
+
+config = SimpleNamespace(**config_mapping)

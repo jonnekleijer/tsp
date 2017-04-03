@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Tom van Steijn, Royal HaskoningDHV
 
-import config
+from config import config
 
 import pandas as pd
 

@@ -1,0 +1,60 @@
+# metadata CSV delimiter symbol
+METADATA_DELIMITER: ','
+
+# metadata CSV decimal symbol
+METADATA_DECIMAL: '.'
+
+# data CSV delimiter symbol
+DATA_DELIMITER: ','
+
+# data CSV decimal symbol
+DATA_DECIMAL: '.'
+
+# data CSV default date format
+DATA_DATETIMEFORMAT: '%Y-%m-%d %H:%M'
+
+# data IPF fileformat
+IPF_FILEFORMAT: '{modelid:}.txt'
+
+# data IPF delimiter symbol
+IPF_DELIMITER: ','
+
+# data IPF decimal symbol (unused)
+IPF_DECIMAL: '.'
+
+# data IPF default date format
+IPF_DATETIMEFORMAT: '%Y%m%d'
+
+# plotting: default color
+COLOR: 'salmon'
+
+# plotting surfa
+SURFACELEVEL: {
+              'label': 'mv',
+              'linestyle':'--',
+              'color':'lightgray',
+              'zorder':2}
+
+# plotting clustered file format
+CLUSTEREDFILEFORMAT: 'series_{name:}.png'
+
+# plotting
+CLUSTEREDTITLEFORMAT: '{area:}: {name:}'
+CLUSTEREDSIDETEXTFORMAT: 'mv: {surfacelevel:6.1f} mNAP'
+CLUSTEREDLABELFORMATS: {
+    1: 'filter {filternr:}, {bottomfilter:.1f} - {topfilter:.1f} mNAP',
+    2: '{label:} l{layer:d}',
+}
+
+SERIESFILEFORMAT: 'series_{name:}_{filternr:d}_l{layer:d}.png'
+SERIESTITLEFORMAT: '{area:}: {name:} filter {filternr:d}, l{layer:d}'
+SERIESSIDETEXTFORMAT: 'mv: {surfacelevel:6.1f} mNAP\nbkf: {topfilter:6.1f} mNAP\nokf: {bottomfilter:6.1f} mNAP'
+
+FIGSIZE: 11.7, 8.27
+DPI: 200
+
+# statistics
+SERIESFILEFORMAT: 'series_{observed:}_{model:}_{start:}_{end:}.csv'
+SUMMARYFILEFORMAT: 'summary_{observed:}_{model:}_{start:}_{end:}.csv'
+SUMMARYBYLAYERFILEFORMAT: 'summary_bylayer_{observed:}_{model:}_{start:}_{end:}.csv'
+
