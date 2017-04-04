@@ -5,29 +5,30 @@ metadata: {file: ..\stamgegevens\ijkdataset.csv, index_cols: [name, filternr],
   surfacelevelfield: surfacelev,
   topfilterfield: topfilter,
   bottomfilterfield: bottomfilter,
+  includefield: include,
   }
 
 # records of series with source h5 file and color specification (for color names see: http://matplotlib.org/examples/color/named_colors.html)
 records: [
-{name: ijkset, label: ijkset, labelformat: 1, file: ..\hdfstores\ijkset.h5, table: series,colorsbylayer: {1: darkblue, 2: darkgreen, 5: darkorange, 6: firebrick},
-  linestyle: '', marker: 'o', markersize: 1.5, markeredgecolor: 'none', alpha: .8, zorder: 1},
-{name: scenario, label: scenario, labelformat: 2, file: ..\hdfstores\scenario.h5, table: series, colorsbylayer: {1: lightblue, 2: lightgreen, 5: gold, 6: lightcoral}, alpha: .8, zorder: 2},
+{name: ijkset, label: ijkset, labelformat: 1, file: ..\hdfstores\ijkset.h5, table: series,colorsbylayer: {1: skyblue, 2: lightgreen},
+  linestyle: '', marker: 'o', markersize: 2, markeredgecolor: 'none', alpha: .8, zorder: 1},
+{name: scenario, label: scenario, labelformat: 2, file: ..\hdfstores\scenario.h5, table: series, colorsbylayer: {1: royalblue, 2: forestgreen}, alpha: .8, zorder: 2},
 ]
 
 # resample frequency (e.g. a=year, m=month, d=day, h=hour, 30min=30 minutes)
 # resample_freq: d
 
 # period start, end as x-axis limits
-period: ['20040101', '20150101']
+period: ['19940101', '20050101']
 
-# x-axis limits
-# ylim: [10, 20]
+# y-axis limits
+ylim: [3., 10.]
 
 # y-axis tick frequency
 # ymajortickspacing: 0.5
 
 # y-axis margin around datarange (between 0. and 1., default: 0.)
-ymargin: 0.5
+# ymargin: 0.5
 
 # x-axis label
 # xlabel:
@@ -36,7 +37,7 @@ ymargin: 0.5
 ylabel: stijghoogte [m+NAP]
 
 # export folder
-exportfolder: ..\clusterplot
+exportfolder: ..\plot_clustered
 
 # figure size (inch)
 figsize: [12, 6]

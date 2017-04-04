@@ -215,9 +215,9 @@ def run(**kwargs):
         sidetextformat = sidetextformat or config.CLUSTEREDSIDETEXTFORMAT
         serieslabelformats = serieslabelformats or config.CLUSTEREDLABELFORMATS
     else:
-        fileformat = fileformat or config.SERIESFILEFORMAT
-        titleformat = titleformat or config.SERIESTITLEFORMAT
-        sidetextformat = sidetextformat or config.SERIESSIDETEXTFORMAT
+        fileformat = fileformat or config.SINGLEFILEFORMAT
+        titleformat = titleformat or config.SINGLETITLEFORMAT
+        sidetextformat = sidetextformat or config.SINGLESIDETEXTFORMAT
 
     # read metadata
     logging.info('reading metadata')
@@ -225,7 +225,8 @@ def run(**kwargs):
         md = utils.table_from_record(metadata)
     else:
         index_cols = metadata.pop('index_cols')
-        md = utils.read_table(metadata['file'], index_cols=index_cols)
+        md = utils.read_table(metadata['file'],
+            index_cols=index_cols,)
 
     # remove duplicates in metadata, select first (location, filternumber)
     md = md.groupby(level=[0, 1]).first()
@@ -244,6 +245,10 @@ def run(**kwargs):
 
     # bottom of filter
     bottomfilters = md.loc[:, metadata.pop('bottomfilterfield')]
+
+    # included filters
+    included = md.loc[:, metadata.pop('includefield')].astype(bool)
+
     if clustered:
         # sidetext variables
         sidevars = pd.DataFrame({
@@ -317,6 +322,12 @@ def run(**kwargs):
 
     if clustered:
         for name, timeseries in ss.groupby(level=[0,]):
+            # skip if not included
+            included_filters = included.xs(name)
+            if not included_filters.any():
+                continue
+
+            # ploting
             logging.info('plotting {name:}'.format(
                 name=name))
             timeseries.reset_index(level=[0,], drop=True, inplace=True)
@@ -379,6 +390,11 @@ def run(**kwargs):
                 )
     else:
         for (name, filternr), timeseries in ss.groupby(level=[0, 1]):
+            # skip if not included
+            if not included.loc[(name, filternr)]:
+                continue
+
+            # plotting
             logging.info('plotting {name:} filter {filternr:d}'.format(
                 name=name, filternr=filternr))
             timeseries.reset_index(level=[0, 1], drop=True, inplace=True)

@@ -30,7 +30,7 @@ COLOR: 'salmon'
 
 # plotting surface level
 SURFACELEVEL: {
-              'label': 'mv',
+              'label': 'maaiveld',
               'linestyle':'--',
               'color':'lightgray',
               'zorder':2}
@@ -43,12 +43,12 @@ CLUSTEREDTITLEFORMAT: '{area:}: {name:}'
 CLUSTEREDSIDETEXTFORMAT: 'mv: {surfacelevel:6.1f} mNAP'
 CLUSTEREDLABELFORMATS: {
     1: 'filter {filternr:}, {bottomfilter:.1f} - {topfilter:.1f} mNAP',
-    2: '{label:} l{layer:d}',
+    2: '{label:} laag {layer:d}',
 }
 
-SERIESFILEFORMAT: 'series_{name:}_{filternr:d}_l{layer:d}.png'
-SERIESTITLEFORMAT: '{area:}: {name:} filter {filternr:d}, l{layer:d}'
-SERIESSIDETEXTFORMAT: 'mv: {surfacelevel:6.1f} mNAP\nbkf: {topfilter:6.1f} mNAP\nokf: {bottomfilter:6.1f} mNAP'
+SINGLEFILEFORMAT: 'series_{name:}_{filternr:d}_l{layer:d}.png'
+SINGLETITLEFORMAT: '{area:}: {name:} filter {filternr:d}, laag {layer:d}'
+SINGLESIDETEXTFORMAT: "mv: {surfacelevel:6.1f} mNAP\nbkf: {topfilter:6.1f} mNAP\nokf: {bottomfilter:6.1f} mNAP"
 
 FIGSIZE: 11.7, 8.27
 DPI: 200
