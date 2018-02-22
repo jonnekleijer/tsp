@@ -20,12 +20,14 @@ def read_table(csvfile,
         decimal=config.METADATA_DECIMAL,
         index_cols=[0, 1],
         header=0,
+        converters=None,
         na_values=None,):
     return pd.read_csv(csvfile,
         delimiter=delimiter,
         decimal=decimal,
         index_col=index_cols,
         header=0,
+        converters=None,
         na_values=na_values,
         )
 

@@ -20,6 +20,7 @@ with open(defaultconfigfile) as y:
 if os.path.exists(userconfigfile):
     with open(userconfigfile) as y:
         userconfig_mapping = yaml.load(y)
-    config_mapping = ChainMap(userconfig_mapping, config_mapping)
+    if userconfig_mapping is not None:
+        config_mapping = ChainMap(userconfig_mapping, config_mapping)
 
 config = SimpleNamespace(**config_mapping)

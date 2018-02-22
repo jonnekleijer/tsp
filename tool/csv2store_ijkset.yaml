@@ -2,22 +2,22 @@
 csvfile: ..\ijkset\ijkset.csv
 
 # CSV file delimiter (default ',')
-delimiter: ';'
+delimiter: ','
 
 # date time format see https://docs.python.org/3/library/datetime.html
-datetimeformat: '%d-%m-%Y %H:%M'
+datetimeformat: '%Y%m%d'
 
 # location field name
-locationfield: NITGCode
+locationfield: location
 
 # filter number field name (only integers, no blanks allowed!)
-filternrfield: FilterNo
+filternrfield: filternr
 
 # date time field name
-datetimefield: DateTime
+datetimefield: datetime
 
 # value field name
-valuefield: ManualHead
+valuefield: value
 
 # destination HDF5 store
 storefile: ..\hdfstores\ijkset.h5
