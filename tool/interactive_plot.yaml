@@ -1,0 +1,50 @@
+# metadata from h5 or CSV file
+metadata: {file: ..\stamgegevens\ijkdataset.csv, index_cols: [name, filternr],
+  areafield: area,
+  layerfield: layer,
+  surfacelevelfield: surfacelev,
+  topfilterfield: topfilter,
+  bottomfilterfield: bottomfilter,
+  includefield: include,
+  xcoordfield: xcoord,
+  ycoordfield: ycoord,
+  }
+
+# records of series with source h5 file and color specification in HEX format (for color HEX codes see: https://www.w3schools.com/colors/colors_picker.asp)
+records: [
+{name: ijkset, label: ijkset, file: ..\hdfstores\ijkset.h5, table: series, color: 1f77b4, linestyle: '', marker: 'o', markersize: 2, markeredgecolor: 'none', alpha: .8, zorder: 1},
+{name: scenario, label: scenario, file: ..\hdfstores\scenario.h5, table: series, color: 2ca02c, linestyle: '-', linewidth: 1, alpha: .8, zorder: 2},
+]
+
+# resample frequency (e.g. a=year, m=month, d=day, h=hour, 30min=30 minutes)
+# resample_freq: d
+
+# period start, end as x-axis limits
+period: ['19940101', '20050101']
+
+# y-axis limits
+ylim: [3., 10.]
+
+# y-axis margin around datarange (between 0. and 1., default: 0.)
+# ymargin: 0.5
+
+# x-axis label
+# xlabel:
+
+# y-axis label
+ylabel: stijghoogte [m+NAP]
+
+# export folder
+exportfolder: ..\plot_interactive
+
+# figure size (inch)
+figsize: [12, 6]
+
+# plot surface level as line
+plot_surfacelevel: True
+
+# cluster by well location
+clustered: False
+
+# plot interactively (bokeh)
+interactive: True
