@@ -1,0 +1,35 @@
+# metadata CSV file
+metadatafile: data\stamgegevens\ijkdataset.csv
+
+# location field name
+locationfield: name
+
+# filter number field name (only integers, no blanks allowed!)
+filternrfield: filternr
+
+# model id field (blank values in this column are skipped)
+modelidfield: modelid
+
+# source folder containing iMOD timeseries ipf txt files
+folder: data\scenarios\scenario
+
+# iMOD ipf txt file delimiter
+delimiter: ','
+
+# iMOD ipf txt file format (containing model ID)
+fileformat: '{modelid:}.txt'
+
+# iMOD ipf txt file datetime format
+datetimeformat: '%Y%m%d'
+
+# iMOD ipf txt file datetime field
+datetimefield: Date
+
+# iMOD ipf txt file value field
+valuefield: Computed_Head
+
+# destination HDF5 store
+storefile: data\hdfstores\scenario.h5
+
+# tablename in HDF5 store
+tablename: series

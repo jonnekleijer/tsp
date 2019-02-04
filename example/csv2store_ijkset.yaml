@@ -1,0 +1,32 @@
+# timeseries CSV file with columns location, filternr, datetime, value (header on first row)
+csvfile: data\ijkset\ijkset.csv
+
+# CSV file delimiter (default ',')
+delimiter: ','
+
+# date time format see https://docs.python.org/3/library/datetime.html
+datetimeformat: '%Y%m%d'
+
+# location field name
+locationfield: location
+
+# filter number field name (only integers, no blanks allowed!)
+filternrfield: filternr
+
+# date time field name
+datetimefield: datetime
+
+# value field name
+valuefield: value
+
+# destination HDF5 store
+storefile: data\hdfstores\ijkset.h5
+
+# tablename in HDF5 store
+tablename: series
+
+
+
+
+
+

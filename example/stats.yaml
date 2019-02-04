@@ -1,0 +1,19 @@
+
+# metadata from h5 or CSV file
+metadata: {file: data\stamgegevens\ijkdataset.csv, index_cols: [name, filternr],
+  areafield: area, layerfield: layer,}
+
+# observed series in h5 file
+observed: {name: ijkset, file: data\hdfstores\ijkset.h5, table: series}
+
+# model series in h5 file
+model: {name: scenario, file: data\hdfstores\scenario.h5, table: series}
+
+# period start, end
+period: ['20040101', '20060101']
+
+# exportfile
+exportfolder: stats
+
+# export series
+export_series: False
